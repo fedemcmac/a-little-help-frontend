@@ -15,4 +15,5 @@
 
 .byebug_history
 
-rubyNotes.rb
+
+/config/local_env.yml
