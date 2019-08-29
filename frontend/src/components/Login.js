@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Login = ({ submit }) => {
+const Login = ({ handleSubmit, turnAuthOff }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -9,7 +9,8 @@ const Login = ({ submit }) => {
         <div>
             <form onSubmit={e => {
             e.preventDefault();
-            submit({ email, password })
+            turnAuthOff();
+            handleSubmit({ email, password })
             setEmail('')
             setPassword('')
         }}>
@@ -19,6 +20,8 @@ const Login = ({ submit }) => {
                 <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
                 <input type="submit" value="Login"/>
             </form>
+
+            <p>Don't have an account?</p>
         </div>
     )
 }
