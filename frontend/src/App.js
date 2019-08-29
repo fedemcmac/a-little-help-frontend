@@ -3,6 +3,10 @@ import "./App.css";
 import Authentication from "./components/Authentication";
 import API from "./adapters/API";
 import JobForm from "./components/JobForm";
+import { Route, Switch, Redirect } from 'react-router-dom'
+import Home from "./components/Home"
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 class App extends Component {
   state = { 
@@ -40,15 +44,12 @@ class App extends Component {
       // })
   }
 
+  
+
   render() {
     return (
       <div className="App">
-        <Authentication
-          user={this.state.user}
-          signUp={this.signUp}
-          logIn={this.logIn}
-          logOut={this.logOut}
-        />
+        { !this.state.user ? <Home signUp={this.signUp} logIn={this.logIn}/> : <div><button onClick={this.logOut}>Log out</button></div> }
         {this.state.user &&
         <JobForm submit={this.submitJob}/>}
       </div>

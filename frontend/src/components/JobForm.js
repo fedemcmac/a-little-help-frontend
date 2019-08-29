@@ -4,7 +4,7 @@ const JobForm = ({ submit }) => {
 
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('Other')
     const [description, setDescription] = useState('')
 
     return(
@@ -14,7 +14,7 @@ const JobForm = ({ submit }) => {
             submit({ title, summary, category, description })
             setTitle('')
             setSummary('')
-            setCategory('')
+            setCategory('Other')
             setDescription('')
         }}>
                 <label>Title:</label>
@@ -23,7 +23,15 @@ const JobForm = ({ submit }) => {
                 <input placeholder="Summary" type="text" name="summary" value={summary} onChange={e => setSummary(e.target.value)} />
                 <label>Category:</label>
                 <select placeholder="Email" type="email" name="category" value={category} onChange={e => setCategory(e.target.value)}>
-                    <option>ciao</option>
+                    <option value="Other">Other</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Physically demanding">Physically demanding</option>
+                    <option value="Other">Other</option>
+                    <option value="Outdoor">Outdoor</option>
+                    <option value="Indoor">Indoor</option>
+                    <option value="Animals">Animals</option>
+                    <option value="Elderly">Elderly</option>
+                    <option value="Children">Children</option>
                 </select>
                 <label>Description:</label>
                 <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} />
