@@ -26,7 +26,7 @@ const JobForm = ({ submit }) => {
                     <option>ciao</option>
                 </select>
                 <label>Description:</label>
-                <textarea placeholder="Password" name="description" value={description} onChange={e => setDescription(e.target.value)} />
+                <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} />
                 <input type="submit" value="Create Job"/>
             </form>
         </div>

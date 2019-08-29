@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
         user = User.create(user_params)
         if user.valid?
             # render json: { user: UserSerializer.new(user), token: user.token }, status: :created
-            render json: { user: UserSerializer.new(user), token: encode_token({user_id: user.id}) }, status: :created
+            render json: { user: FullUserSerializer.new(user), token: encode_token({user_id: user.id}) }, status: :created
         else
             render json: { errors: user.errors.full_messages }, status: :not_accepted
         end
@@ -19,7 +19,7 @@ class Api::UsersController < ApplicationController
 
     def show
         user = User.find(params[:id])
-        render json: { job: FullUserSerializer.new(user) }
+        render json: { user: FullUserSerializer.new(user) }
     end
 
     private 

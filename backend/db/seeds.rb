@@ -9,7 +9,7 @@ UserJob.destroy_all
 Job.destroy_all
 User.destroy_all
 
-u1 = User.create(username: 'user1', email: "user1email", password: "user1pass")
+u1 = User.create(username: 'user1', email: "user1@user1.com", password: "user1")
 u2 = User.create(username: 'user2', email: "user2email", password: "user2pass")
 
 j1 = Job.create(title: "test1title", summary: "1summary", category: "1category", description: "test1description", user_id: u1.id)
