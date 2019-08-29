@@ -9,13 +9,13 @@ UserJob.destroy_all
 Job.destroy_all
 User.destroy_all
 
-u1 = User.create(username: 'user1', email: "user1email", password_digest: "user1pass")
-u2 = User.create(username: 'user2', email: "user2email", password_digest: "user2pass")
+u1 = User.create(username: 'user1', email: "user1email", password: "user1pass")
+u2 = User.create(username: 'user2', email: "user2email", password: "user2pass")
 
-j1 = Job.create(title: "test1title", subtitle: "1subtitle", category: "1category", description: "test1description", user_id: u1.id)
-j2 = Job.create(title: "test2title", subtitle: "2subtitle", category: "2category", description: "test2description", user_id: u2.id)
-j3 = Job.create(title: "test3title", subtitle: "3subtitle", category: "3category", description: "test3description", user_id: u1.id)
-j4 = Job.create(title: "test4title", subtitle: "4subtitle", category: "4category", description: "test4description", user_id: u2.id)
+j1 = Job.create(title: "test1title", summary: "1summary", category: "1category", description: "test1description", user_id: u1.id)
+j2 = Job.create(title: "test2title", summary: "2summary", category: "2category", description: "test2description", user_id: u2.id)
+j3 = Job.create(title: "test3title", summary: "3summary", category: "3category", description: "test3description", user_id: u1.id)
+j4 = Job.create(title: "test4title", summary: "4summary", category: "4category", description: "test4description", user_id: u2.id)
 
 uj11 = UserJob.create(user_id: u1.id, job_id: j1.id)
 uj22 = UserJob.create(user_id: u2.id, job_id: j2.id)
