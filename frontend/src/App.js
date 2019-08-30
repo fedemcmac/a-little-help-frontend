@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
-import Authentication from "./components/Authentication";
+// import Authentication from "./components/Authentication";
 import API from "./adapters/API";
 import JobForm from "./components/JobForm";
-import { Route, Switch, Redirect } from 'react-router-dom'
-import Home from "./components/Home"
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+import Welcome from "./components/Welcome"
+// import Signup from "./components/Signup";
+// import Login from "./components/Login";
+import { withRouter, Route, Link, Redirect } from 'react-router-dom'
+// import PrivateRoute from "./components/PrivateRoute"
 
 class App extends Component {
   state = { 
@@ -31,6 +32,7 @@ class App extends Component {
   logOut = () => {
     API.clearToken();
     this.setState({ user: undefined, jobs: [] });
+    this.props.history.push('/')
   };
 
   submitJob = (job) => {
@@ -44,17 +46,29 @@ class App extends Component {
       // })
   }
 
-  
-
   render() {
     return (
       <div className="App">
-        { !this.state.user ? <Home signUp={this.signUp} logIn={this.logIn}/> : <div><button onClick={this.logOut}>Log out</button></div> }
-        {this.state.user &&
-        <JobForm submit={this.submitJob}/>}
+        {!this.state.user ?
+          <Route path={["/"]} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> :
+          <div><button onClick={this.logOut}>Log out</button></div> 
+        }
+
+        
+        {/* <Route exact path="/login" component={Login} handleSubmit={this.logIn}/>
+        <Route exact path="/signup" component={Signup} handleSubmit={this.signUp}/> */}
+        {/* { !this.state.user ? 
+        <Home signUp={this.signUp} logIn={this.logIn}/> 
+        : 
+        <div><button onClick={this.logOut}>Log out</button></div> } */}
+        {/* {this.state.user && */}
+
+        {/* <PrivateRoute path="/create-job" user={this.state.user} component={JobForm} submit={this.submitJob}/> */}
+        {/* <JobForm submit={this.submitJob}/> */}
+        {/* } */}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

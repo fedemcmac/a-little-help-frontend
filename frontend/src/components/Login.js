@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const Login = ({ handleSubmit, turnAuthOff }) => {
-
+const Login = ( props ) => {
+    console.log(props)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -9,19 +10,21 @@ const Login = ({ handleSubmit, turnAuthOff }) => {
         <div>
             <form onSubmit={e => {
             e.preventDefault();
-            turnAuthOff();
-            handleSubmit({ email, password })
+            // turnAuthOff();
+            props.handleSubmit({ email, password });
             setEmail('')
             setPassword('')
         }}>
-                <label>Email:</label>
+                
                 <input placeholder="Email" type="email" name="email" value={email} onChange={e => setEmail(e.target.value)} /><br />
-                <label>Password:</label>
-                <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
-                <input type="submit" value="Login"/>
+                
+                <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
+                <input type="submit" value="LOGIN"/>
             </form>
 
-            <p>Don't have an account?</p>
+            <p>Don't have an account?
+            <Link to="/signup"> Sign Up</Link>
+            </p>
         </div>
     )
 }

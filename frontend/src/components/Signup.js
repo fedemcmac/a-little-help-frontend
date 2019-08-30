@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Signup = ({ handleSubmit, turnAuthOff }) => {
     const [username, setUsername] = useState('')
@@ -9,23 +10,25 @@ const Signup = ({ handleSubmit, turnAuthOff }) => {
         <div>
             <form onSubmit={e => {
             e.preventDefault();
-            turnAuthOff()
+            // turnAuthOff()
             handleSubmit({ username, email, password })
             setUsername('')
             setEmail('')
             setPassword('')
         }}>
 
-                <label>Username:</label>
+                
                 <input placeholder="Username" type="text" name="username" value={username} onChange={e => setUsername(e.target.value)} /><br />
-                <label>Email:</label>
+                
                 <input placeholder="Email" type="email" name="email" value={email} onChange={e => setEmail(e.target.value)} /><br />
-                <label>Password:</label>
-                <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
-                <input type="submit" value="Sign up"/>
+                
+                <input placeholder="Password" type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} /><br />
+                <input type="submit" value="SIGN UP"/>
             </form>
 
-            <p>Already have an account?</p>
+            <p>Already have an account?
+                <Link to="/login"> Login</Link>
+            </p>
         </div>
     )
 }
