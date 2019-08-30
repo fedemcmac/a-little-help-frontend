@@ -27,7 +27,7 @@ const Signup = ({ handleSubmit, turnAuthOff }) => {
             </form>
 
             <p>Already have an account?
-                <Link to />
+                <Link to="/login"> Login</Link>
             </p>
         </div>
     )

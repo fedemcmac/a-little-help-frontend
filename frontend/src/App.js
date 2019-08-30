@@ -32,6 +32,7 @@ class App extends Component {
   logOut = () => {
     API.clearToken();
     this.setState({ user: undefined, jobs: [] });
+    this.props.history.push('/')
   };
 
   submitJob = (job) => {
