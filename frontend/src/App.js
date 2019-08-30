@@ -7,6 +7,7 @@ import Welcome from "./components/Welcome"
 // import Signup from "./components/Signup";
 // import Login from "./components/Login";
 import { withRouter, Route, Link, Redirect } from 'react-router-dom'
+import MembersArea from "./components/MembersArea";
 // import PrivateRoute from "./components/PrivateRoute"
 
 class App extends Component {
@@ -17,7 +18,11 @@ class App extends Component {
 
   componentDidMount() {
     API.validateUser().then(user => {
-      if (!user.error) this.setState({ user: user, jobs: user.created_jobs});
+      if (!user.error) {
+        this.setState({ user: user, jobs: user.created_jobs})
+      } else {
+        this.props.history.push('/')
+      }
     });
   }
 
@@ -51,7 +56,8 @@ class App extends Component {
       <div className="App">
         {!this.state.user ?
           <Route path={["/"]} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> :
-          <div><button onClick={this.logOut}>Log out</button></div> 
+          <MembersArea logOut={this.logOut}/>
+          // <div><button onClick={this.logOut}>Log out</button></div> 
         }
 
         
