@@ -23,7 +23,7 @@ class App extends Component {
         // this.props.history.push('/')
       } else {
         this.props.history.push('/welcome')
-      }
+      } API.getJobs().then(data => this.setState({ jobs: data}))
     });
   }
 
@@ -56,8 +56,9 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.user ?
-          <Route path={"/"} component={() => <MembersArea logOut={this.logOut} user={this.state.user}/>} />:
-          <Route path={"/welcome"} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> 
+          <Route path={"/"} component={() => <MembersArea logOut={this.logOut} user={this.state.user} jobs={this.state.jobs}/>} />:
+          <Route 
+          path={"/welcome"} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> 
           // <div><button onClick={this.logOut}>Log out</button></div> 
         }
 

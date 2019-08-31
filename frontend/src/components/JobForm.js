@@ -18,9 +18,9 @@ const JobForm = ({ submit }) => {
             setDescription('')
         }}>
                 <label>Title:</label>
-                <input placeholder="Title" type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} />
+                <input placeholder="Title" type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} /><br />
                 <label>Summary:</label>
-                <input placeholder="Summary" type="text" name="summary" value={summary} onChange={e => setSummary(e.target.value)} />
+                <input placeholder="Summary" type="text" name="summary" value={summary} onChange={e => setSummary(e.target.value)} /><br />
                 <label>Category:</label>
                 <select placeholder="Email" type="email" name="category" value={category} onChange={e => setCategory(e.target.value)}>
                     <option value="Other">Other</option>
@@ -32,9 +32,9 @@ const JobForm = ({ submit }) => {
                     <option value="Animals">Animals</option>
                     <option value="Elderly">Elderly</option>
                     <option value="Children">Children</option>
-                </select>
+                </select><br />
                 <label>Description:</label>
-                <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} />
+                <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} /><br />
                 <input type="submit" value="Create Job"/>
             </form>
         </div>
