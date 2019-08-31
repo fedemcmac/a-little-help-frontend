@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Header from './Header';
 
 const JobForm = ({ submit }) => {
 
@@ -9,6 +10,7 @@ const JobForm = ({ submit }) => {
 
     return(
         <div>
+            <Header title="Create new task"/>
             <form onSubmit={e => {
             e.preventDefault();
             submit({ title, summary, category, description })
