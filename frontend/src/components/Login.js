@@ -23,7 +23,7 @@ const Login = ({ handleSubmit }) => {
             </form>
 
             <p>Don't have an account?
-            <Link to="/signup"> Sign Up</Link>
+            <Link to="/welcome/signup"> Sign Up</Link>
             </p>
         </div>
     )

@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 // import Authentication from "./components/Authentication";
 import API from "./adapters/API";
-import JobForm from "./components/JobForm";
+// import JobForm from "./components/JobForm";
 import Welcome from "./components/Welcome"
 // import Signup from "./components/Signup";
 // import Login from "./components/Login";
-import { withRouter, Route, Link, Redirect } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
 import MembersArea from "./components/MembersArea";
 // import PrivateRoute from "./components/PrivateRoute"
 
@@ -20,8 +20,9 @@ class App extends Component {
     API.validateUser().then(user => {
       if (!user.error) {
         this.setState({ user: user, jobs: user.created_jobs})
+        // this.props.history.push('/')
       } else {
-        this.props.history.push('/')
+        this.props.history.push('/welcome')
       }
     });
   }
@@ -37,7 +38,7 @@ class App extends Component {
   logOut = () => {
     API.clearToken();
     this.setState({ user: undefined, jobs: [] });
-    this.props.history.push('/')
+    this.props.history.push('/welcome')
   };
 
   submitJob = (job) => {
@@ -54,9 +55,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {!this.state.user ?
-          <Route path={["/"]} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> :
-          <MembersArea logOut={this.logOut}/>
+        {this.state.user ?
+          <Route path={"/"} component={() => <MembersArea logOut={this.logOut} user={this.state.user}/>} />:
+          <Route path={"/welcome"} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> 
           // <div><button onClick={this.logOut}>Log out</button></div> 
         }
 

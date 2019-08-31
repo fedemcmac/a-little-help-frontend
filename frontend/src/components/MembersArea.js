@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
-// import { Route, Link } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import Dashboard from './Dashboard'
+import Instructions from './Instructions'
 
-class MembersArea extends Component {
-    render() {
+const MembersArea = ({ user, logOut }) => {
         return(
-            <div>members only
-            <div><button onClick={this.props.logOut}>Log out</button></div> 
+            <div>
+            <div><button onClick={logOut}>Log out</button></div> 
+            {user.instructions ?
+            <BrowserRouter>
+                <Redirect to="/instructions" />
+                <Route path='/instructions' component={Instructions} />
+            </BrowserRouter> :
+            <Dashboard />}
             </div>
         )
-    }
 }
 
 export default MembersArea

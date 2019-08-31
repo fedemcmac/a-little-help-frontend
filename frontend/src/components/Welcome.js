@@ -29,11 +29,11 @@ class Welcome extends Component {
     //   }
 
     goLogin = () => {
-        this.props.history.push('/login')
+        this.props.history.push('/welcome/login')
     }
     
     goSignup = () => {
-        this.props.history.push('/signup')
+        this.props.history.push('/welcome/signup')
     }
 
     render() {
@@ -43,10 +43,10 @@ class Welcome extends Component {
             <h1> A Little Help </h1>
             <h3> Independent volunteering <br /> on the micro scale </h3>
             <Switch>
-                <Route path="/login" component={(props) => <Login {...props} handleSubmit={logIn}/>} />
-                <Route exact path="/signup" component={(props) => <Signup {...props} handleSubmit={signUp}/>} />
+                <Route path="/welcome/login" component={(props) => <Login {...props} handleSubmit={logIn}/>} />
+                <Route path="/welcome/signup" component={(props) => <Signup {...props} handleSubmit={signUp}/>} />
             </Switch>
-            {this.props.location.pathname === "/" ? 
+            {this.props.location.pathname === "/welcome" ? 
             <>
                 <button onClick={this.goLogin}>LOGIN</button><br />
                 <button onClick={this.goSignup}>SIGN UP</button>
