@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Instructions from './Instructions'
 
-const MembersArea = ({ user, logOut, jobs }) => {
+const MembersArea = ({ user, logOut, jobs, submitJob }) => {
         return(
             <div>
             {/* <div><button onClick={logOut}>Log out</button></div>  */}
@@ -14,7 +14,7 @@ const MembersArea = ({ user, logOut, jobs }) => {
             </BrowserRouter> :
             <BrowserRouter>
                 <Redirect to="/dashboard" />
-                <Route path="/dashboard" component={() => <Dashboard user={user} logOut={logOut} jobs={jobs}/>}/>
+                <Route path="/dashboard" component={() => <Dashboard submitJob={submitJob} user={user} logOut={logOut} jobs={jobs}/>}/>
             </BrowserRouter> 
             }
             </div>

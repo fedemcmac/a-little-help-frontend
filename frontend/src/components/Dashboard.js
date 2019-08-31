@@ -35,7 +35,7 @@ class Dashboard extends Component {
         if (this.state.render === "browseTasks") return <BrowseTasksList jobs={this.props.jobs}/>;
         if (this.state.render === "myTasks") return <MyTasksList createdJobs={this.props.user.created_jobs} helpingJobs={this.props.user.helping_jobs}/>;
         if (this.state.render === "profile") {return <Profile {...this.props.user} logOut={this.props.logOut}/>};
-        if (this.state.render === "createTask") {return <JobForm {...this.props.user}/>};
+        if (this.state.render === "createTask") {return <JobForm submit={this.props.submitJob}{...this.props.user}/>};
         // <p>Already have an account?
         //         <Link to="/welcome/login"> Login</Link>
         //     {/* </p> */}
