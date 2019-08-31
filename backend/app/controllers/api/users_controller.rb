@@ -22,10 +22,24 @@ class Api::UsersController < ApplicationController
         render json: { user: FullUserSerializer.new(user) }
     end
 
+    # def edit
+    # end
+
+    def update
+        user = User.find(params[:id])
+        user.update(user_params)
+        if user.valid?
+            render json: user
+        else 
+            ############################################### not doing anything?????
+            render json: { errors: user.errors.full_messages }
+        end
+    end
+
     private 
 
     def user_params
-        params.require(:user).permit(:username, :email, :password)
+        params.require(:user).permit(:username, :email, :password, :instructions)
     end
 
 end

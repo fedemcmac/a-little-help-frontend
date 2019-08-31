@@ -15,6 +15,10 @@ class Api::JobsController < ApplicationController
         render json: Job.all
     end
 
+    def browse_jobs
+        render json: Job.all.where("user_id != ?", @current_user.id)
+    end
+
     def show
         job = Job.find(params[:id])
         render json: { job: FullJobSerializer.new(job) }
@@ -23,7 +27,7 @@ class Api::JobsController < ApplicationController
     private
 
     def post_params
-        params.require(:job).permit(:user_id, :title, :summary, :category, :description )
+        params.require(:job).permit(:user_id, :title, :summary, :category, :description)
     end
 
 end
