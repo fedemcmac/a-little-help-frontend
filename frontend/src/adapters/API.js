@@ -1,7 +1,8 @@
 const endpoint = 'http://localhost:3000/api'
 const signupUrl = `${endpoint}/users`
 const loginUrl = `${endpoint}/login`
-const jobsUrl = `${endpoint}/browse_jobs`
+const jobsUrl = `${endpoint}/jobs`
+const filteredJobsUrl = `${endpoint}/browse_jobs`
 const validateUrl = `${endpoint}/validate`
 
 
@@ -68,7 +69,7 @@ const postJob = job => fetch(jobsUrl, {
 }).then(jsonify)
     .catch(handleServerError)
 
-const getJobs = () => fetch(jobsUrl, {
+const getJobs = () => fetch(filteredJobsUrl, {
     headers: constructHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json'
