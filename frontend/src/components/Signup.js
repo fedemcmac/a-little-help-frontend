@@ -27,7 +27,7 @@ const Signup = ({ handleSubmit }) => {
             </form>
 
             <p>Already have an account?
-                <Link to="/login"> Login</Link>
+                <Link to="/welcome/login"> Login</Link>
             </p>
         </div>
     )
