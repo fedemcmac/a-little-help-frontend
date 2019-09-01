@@ -3,7 +3,7 @@ import JobCard from './JobCard'
 
 const MyTasksList = ({ createdJobs, helpingJobs}) => {
     return(
-        <div>
+        <div className="scrollable">
             <h4>Created tasks:</h4>
             {createdJobs.length === 0 ?
             "You haven't created any tasks yet" :

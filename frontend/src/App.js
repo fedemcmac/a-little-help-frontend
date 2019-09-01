@@ -43,7 +43,7 @@ class App extends Component {
 
   submitJob = (job) => {
     API.postJob(job)
-      .then(data => this.setState({ user: { ...this.state.user}, jobs: [...this.state.jobs, data.job] } ))
+      .then(data => this.setState({ user: { ...this.state.user.created_jobs, data} } ))
       // .catch(errorPromise => {
       //   errorPromise
       //     .then(data => {
