@@ -4,6 +4,7 @@ const loginUrl = `${endpoint}/login`
 const jobsUrl = `${endpoint}/jobs`
 const filteredJobsUrl = `${endpoint}/browse_jobs`
 const validateUrl = `${endpoint}/validate`
+const dropJobUrl = `${endpoint}/drop_job`
 
 
 const jsonify = res => {
@@ -78,11 +79,33 @@ const getJobs = () => fetch(filteredJobsUrl, {
 
 const clearToken = () => localStorage.removeItem('token')
 
+const dropJob = (job) => fetch(dropJobUrl, {
+    method: 'DELETE',
+    body: JSON.stringify({ job }),
+    headers: constructHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    })
+}).then(jsonify)
+
+// delete '/drop_task', to: 'users#drop_task'
+
+const acceptJob = (job) => {
+    console.log("to do")
+}
+
+const editJob = (job) => {
+    console.log("to do")
+}
+
 export default {
     signUp,
     logIn,
     validateUser,
     clearToken,
     postJob,
-    getJobs
+    getJobs,
+    dropJob,
+    acceptJob,
+    editJob,
 }
