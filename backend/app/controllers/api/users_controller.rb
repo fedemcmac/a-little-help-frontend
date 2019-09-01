@@ -20,9 +20,11 @@ class Api::UsersController < ApplicationController
     def show
         user = User.find(params[:id])
         render json: { user: FullUserSerializer.new(user) }
-    end
-
-    # def edit
+    end 
+    
+    # def add_job
+    #     user_job = UserJob.create(job_id: params[:job_id], user_id: @current_user.id )
+    #     render json: { user: FullUserSerializer.new(@current_user) }
     # end
 
     def update
