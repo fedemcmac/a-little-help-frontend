@@ -10,7 +10,7 @@ const JobForm = ({ submit }) => {
 
     return(
         <div>
-            <Header title="Create new task"/>
+            {/* <Header title="Create new task"/> */}
             <form onSubmit={e => {
             e.preventDefault();
             submit({ title, summary, category, description })

@@ -7,5 +7,8 @@ Rails.application.routes.draw do
         post '/login', to: 'auth#create'
         get '/validate', to: 'auth#validate_token'
         get '/browse_jobs', to: 'jobs#browse_jobs'
+        post '/add_job', to: 'users#drop_job'
+        delete '/drop_job', to: 'users#drop_job'
+        delete '/edit_job', to: 'tasks#drop_job'
   end
 end

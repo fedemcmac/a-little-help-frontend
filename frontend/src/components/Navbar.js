@@ -18,9 +18,9 @@ class Navbar extends Component {
         </Switch> */}
 
         <Link className="wordLink" to="/dashboard">Dashboard </Link>
-        <Link className="wordLink" to="/browseTasks">Browse Tasks </Link>
-        <Link className="wordLink" to="/myTasks">My Tasks </Link>
-        <Link className="wordLink" to="/createTask">New Task</Link>
+        <Link className="wordLink" to="/browse-tasks">Browse Tasks </Link>
+        <Link className="wordLink" to="/my-tasks">My Tasks </Link>
+        <Link className="wordLink" to="/create-task">New Task</Link>
         {/* <Link to="/profile">profile</Link> */}
 {/* 
         <button value="dashboard" onClick={this.props.handleClick}>Dashboard</button>

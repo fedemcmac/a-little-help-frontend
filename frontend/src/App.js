@@ -52,11 +52,36 @@ class App extends Component {
       // })
   }
 
+  dropTask = (job) => {
+    console.log("drop")
+    API.dropTask(job)
+  }
+
+  acceptTask = (job) => {
+    console.log("accept")
+    API.acceptTask(job)
+  }
+  
+  editTask = (job) => {
+    console.log("edit")
+    API.editTask(job)
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.user ?
-          <Route path={"/"} component={() => <MembersArea submitJob={this.submitJob}logOut={this.logOut} user={this.state.user} jobs={this.state.jobs}/>} />:
+          <Route path={"/"} component={() => 
+          <MembersArea 
+          submitJob={this.submitJob}
+          logOut={this.logOut} 
+          user={this.state.user} 
+          jobs={this.state.jobs} 
+          acceptTask={this.acceptTask}
+          dropTask={this.dropTask}
+          editTask={this.editTask}/>}
+
+          /> :
           <Route 
           path={"/welcome"} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> 
           // <div><button onClick={this.logOut}>Log out</button></div> 
