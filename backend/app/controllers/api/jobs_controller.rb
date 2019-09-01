@@ -16,7 +16,9 @@ class Api::JobsController < ApplicationController
     end
 
     def browse_jobs
-        render json: Job.all.where("user_id != ?", @current_user.id)
+        others_jobs = Job.all.where("user_id != ?", @current_user.id)
+        available_jobs = others_jobs.where("id NOT IN(SELECT job_id FROM user_jobs WHERE user_jobs.user_id = ?)", @current_user.id)
+        render json: available_jobs
     end
 
     def show
@@ -24,6 +26,12 @@ class Api::JobsController < ApplicationController
         render json: { job: FullJobSerializer.new(job) }
     end
 
+    def accept_job
+        user_job = UserJob.create(job_id: params[:job_id], user_id: @current_user.id )
+        job = Job.find(user_job.job_id)
+        render json: { job: JobSerializer.new(job) }
+    end
+    
     private
 
     def post_params
