@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-const JobCard = ({ title, summary, handleButtonClick, buttonText }) => {
-    return(
-        <div>
-            <h3>{title}</h3>
-            <h6>{summary}</h6>
-            <button onClick={handleButtonClick}>{buttonText}</button>
-        </div>
-    )
-}
+const JobCard = ({ job, handleButtonClick, buttonText }) => {
+  return (
+    <div>
+      <h3>{job.title}</h3>
+      <h6>{job.summary}</h6>
+      <button onClick={() => handleButtonClick(job.id)}>{buttonText}</button>
+    </div>
+  );
+};
 
-export default JobCard
+export default JobCard;

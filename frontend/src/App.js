@@ -3,15 +3,15 @@ import "./App.css";
 // import Authentication from "./components/Authentication";
 import API from "./adapters/API";
 // import JobForm from "./components/JobForm";
-import Welcome from "./components/Welcome"
+import Welcome from "./components/Welcome";
 // import Signup from "./components/Signup";
 // import Login from "./components/Login";
-import { withRouter, Route } from 'react-router-dom'
+import { withRouter, Route } from "react-router-dom";
 import MembersArea from "./components/MembersArea";
 // import PrivateRoute from "./components/PrivateRoute"
 
 class App extends Component {
-  state = { 
+  state = {
     user: undefined,
     jobs: []
   };
@@ -19,75 +19,112 @@ class App extends Component {
   componentDidMount() {
     API.validateUser().then(user => {
       if (!user.error) {
-        this.setState({ user: user, jobs: user.created_jobs})
+        this.setState({ user: user });
         // this.props.history.push('/')
       } else {
-        this.props.history.push('/welcome')
-      } API.getJobs().then(data => this.setState({ jobs: data}))
+        this.props.history.push("/welcome");
+      }
+      API.getJobs().then(data => this.setState({ jobs: data }));
     });
   }
 
   signUp = user => {
-    API.signUp(user).then(user => this.setState({ user: user, jobs: user.created_jobs }));
+    API.signUp(user).then(user => this.setState({ user: user }));
+    API.getJobs().then(data => this.setState({ jobs: data }));
   };
 
   logIn = user => {
-    API.logIn(user).then(user => this.setState({ user: user, jobs: user.created_jobs }));
+    API.logIn(user).then(user => this.setState({ user: user }));
+    API.getJobs().then(data => this.setState({ jobs: data }));
   };
 
   logOut = () => {
     API.clearToken();
     this.setState({ user: undefined, jobs: [] });
-    this.props.history.push('/welcome')
+    this.props.history.push("/welcome");
   };
 
-  submitJob = (job) => {
-    API.postJob(job)
-      .then(data => this.setState({ user: { ...this.state.user.created_jobs, data} } ))
-      // .catch(errorPromise => {
-      //   errorPromise
-      //     .then(data => {
-      //       this.setState({ errors: data.errors })
-      //     })
-      // })
-  }
+  submitJob = job => {
+    API.postJob(job).then(data =>
+      this.setState({ user: { ...this.state.user.created_jobs, data } })
+    );
+    // .catch(errorPromise => {
+    //   errorPromise
+    //     .then(data => {
+    //       this.setState({ errors: data.errors })
+    //     })
+    // })
+  };
 
-  dropTask = (job) => {
-    console.log("drop")
-    API.dropTask(job)
-  }
+  findJob = id => {
+    return this.state.user.helping_jobs.find(job => job.id === id);
+  };
 
-  acceptTask = (job) => {
-    console.log("accept")
-    API.acceptTask(job)
-  }
-  
-  editTask = (job) => {
-    console.log("edit")
-    API.editTask(job)
-  }
+  dropJob = id => {
+    API.dropJob(id);
+    this.setState({
+      jobs: [this.state.jobs, this.findJob(id)],
+      user: {
+        ...this.state.user,
+        helping_jobs: this.state.user.helping_jobs.filter(job => job.id !== id)
+      }
+    });
+  };
+
+  acceptJob = id => {
+    API.acceptJob(id).then(data =>
+      this.setState({
+        user: {
+          ...this.state.user,
+          helping_jobs: [...this.state.user.helping_jobs, data.job]
+        },
+        jobs: this.state.jobs.filter(job => job.id !== data.job.id)
+      })
+    );
+  };
+
+  editJob = id => {
+    API.editJob(id);
+  };
+
+  deleteJob = id => {
+    API.deleteJob(id);
+  };
 
   render() {
     return (
       <div className="App">
-        {this.state.user ?
-          <Route path={"/"} component={() => 
-          <MembersArea 
-          submitJob={this.submitJob}
-          logOut={this.logOut} 
-          user={this.state.user} 
-          jobs={this.state.jobs} 
-          acceptTask={this.acceptTask}
-          dropTask={this.dropTask}
-          editTask={this.editTask}/>}
-
-          /> :
-          <Route 
-          path={"/welcome"} component={() => <Welcome signUp={this.signUp} logIn={this.logIn} history={this.props.history}/>} /> 
-          // <div><button onClick={this.logOut}>Log out</button></div> 
+        {this.state.user ? (
+          <Route
+            path={"/"}
+            component={() => (
+              <MembersArea
+                submitJob={this.submitJob}
+                logOut={this.logOut}
+                user={this.state.user}
+                jobs={this.state.jobs}
+                acceptJob={this.acceptJob}
+                dropJob={this.dropJob}
+                editJob={this.editJob}
+                deleteJob={this.deleteJob}
+              />
+            )}
+          />
+        ) : (
+          <Route
+            path={"/welcome"}
+            component={() => (
+              <Welcome
+                signUp={this.signUp}
+                logIn={this.logIn}
+                history={this.props.history}
+              />
+            )}
+          />
+        )
+        // <div><button onClick={this.logOut}>Log out</button></div>
         }
 
-        
         {/* <Route exact path="/login" component={Login} handleSubmit={this.logIn}/>
         <Route exact path="/signup" component={Signup} handleSubmit={this.signUp}/> */}
         {/* { !this.state.user ? 

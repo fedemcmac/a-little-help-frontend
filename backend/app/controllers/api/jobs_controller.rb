@@ -27,11 +27,16 @@ class Api::JobsController < ApplicationController
     end
 
     def accept_job
-        user_job = UserJob.create(job_id: params[:job_id], user_id: @current_user.id )
+        user_job = UserJob.create(job_id: params[:job_id], user_id: @current_user.id)
         job = Job.find(user_job.job_id)
         render json: { job: JobSerializer.new(job) }
     end
     
+    def destroy
+        job = Job.find_by(id: params[:id], user_id: @current_user.id )
+        job.destroy
+    end
+
     private
 
     def post_params
