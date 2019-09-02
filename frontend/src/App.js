@@ -89,6 +89,7 @@ class App extends Component {
 
   deleteJob = id => {
     API.deleteJob(id);
+    this.setState({ user: {...this.state.user, created_jobs: this.state.user.created_jobs.filter(job => job.id !== id)} })
   };
 
   render() {
