@@ -63,7 +63,7 @@ class App extends Component {
   dropJob = id => {
     API.dropJob(id);
     this.setState({
-      jobs: [this.state.jobs, this.findJob(id)],
+      jobs: [...this.state.jobs, this.findJob(id)],
       user: {
         ...this.state.user,
         helping_jobs: this.state.user.helping_jobs.filter(job => job.id !== id)

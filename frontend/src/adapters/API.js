@@ -5,7 +5,7 @@ const jobsUrl = `${endpoint}/jobs`;
 const filteredJobsUrl = `${endpoint}/browse_jobs`;
 const validateUrl = `${endpoint}/validate`;
 const dropJobUrl = `${endpoint}/drop_job`;
-
+const acceptJobUrl = `${endpoint}/accept_job`;
 
 const jsonify = res => {
   if (res.ok) return res.json();
@@ -95,7 +95,7 @@ const dropJob = id =>
   });
 
 const deleteJob = id =>
-  fetch((`${jobsUrl}/${id}`), {
+  fetch(`${jobsUrl}/${id}`, {
     method: "DELETE",
     headers: constructHeaders({
       "Content-Type": "application/json",
@@ -105,9 +105,15 @@ const deleteJob = id =>
 
 // delete '/drop_task', to: 'users#drop_task'
 
-const acceptJob = job => {
-  console.log("to do");
-};
+const acceptJob = id =>
+  fetch(acceptJobUrl, {
+    method: "POST",
+    body: JSON.stringify({ job_id: id }),
+    headers: constructHeaders({
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    })
+  }).then(jsonify);
 
 const editJob = job => {
   console.log("to do");
