@@ -11,6 +11,7 @@ const jsonify = res => {
   if (res.ok) return res.json();
   else throw res.json();
 };
+
 const handleServerError = response => {
   // console.error(response)
   throw response;
@@ -115,8 +116,17 @@ const acceptJob = id =>
     })
   }).then(jsonify);
 
+const showJob = id => {
+  return fetch(jobsUrl + `/${id}`)
+    .then(resp => resp.json())
+    .then(data => {
+      console.log("From fetch:", data);
+      return data;
+    });
+};
+
 const editJob = job => {
-  console.log("to do");
+  console.log(`edit this job ${job.id}`);
 };
 
 export default {
@@ -129,5 +139,6 @@ export default {
   dropJob,
   acceptJob,
   editJob,
+  showJob,
   deleteJob
 };

@@ -1,11 +1,17 @@
 import React from "react";
 
-const JobCard = ({ job, handleButtonClick, buttonText }) => {
+const JobCard = ({ job, handleButtonClick, buttonText, handleJobClick }) => {
   return (
     <div>
-      <h3>{job.title}</h3>
-      <h6>{job.summary}</h6>
-      <button onClick={() => handleButtonClick(job.id)}>{buttonText}</button>
+      <div onClick={() => handleJobClick(job.id)}>
+        <h4>Title: </h4>
+        <p>{job.title}</p>
+        <h4>Summary: </h4>
+        <p>{job.summary}</p>
+      </div>
+      <div>
+        <button onClick={() => handleButtonClick(job.id)}>{buttonText}</button>
+      </div>
     </div>
   );
 };

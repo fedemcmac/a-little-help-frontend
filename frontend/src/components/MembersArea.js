@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { withRouter, BrowserRouter, Route, Redirect } from "react-router-dom";
 // import Dashboard from './Dashboard'
 import Instructions from "./Instructions";
 import Profile from "./Profile";
@@ -7,28 +7,42 @@ import BrowseJobsList from "./BrowseJobsList";
 import MyJobsList from "./MyJobsList";
 import JobForm from "./JobForm";
 import Navbar from "./Navbar";
+import JobShow from "./JobShow";
 
+// check if this component really needs to be a class
 class MembersArea extends Component {
 
-    state = { selectedTask: {} }
+  redirectToTaskShowPage = id => {
+    this.props.history.push("/task/:id".replace(":id", id));
+  };
 
   render() {
     return (
       <BrowserRouter>
         <div>
           {/* <div><button onClick={logOut}>Log out</button></div>  */}
-          {this.props.user.instructions ? <Redirect to="/instructions" /> : <Navbar />
+          {this.props.user.instructions ? (
+            <Redirect to="/instructions" />
+          ) : (
+            <Navbar />
+          )
           // <Redirect to="/dashboard" />
           }
           <Route path="/instructions" component={Instructions} />
           <Route
             path="/dashboard"
-            component={() => <Profile {...this.props.user} logOut={this.props.logOut} />}
+            component={() => (
+              <Profile {...this.props.user} logOut={this.props.logOut} />
+            )}
           />
           <Route
             path="/browse-tasks"
             component={() => (
-              <BrowseJobsList jobs={this.props.jobs} acceptJob={this.props.acceptJob} />
+              <BrowseJobsList
+                jobs={this.props.jobs}
+                acceptJob={this.props.acceptJob}
+                redirectToTaskShowPage={this.redirectToTaskShowPage}
+              />
             )}
           />
           <Route
@@ -40,13 +54,17 @@ class MembersArea extends Component {
                 dropJob={this.props.dropJob}
                 editJob={this.props.editJob}
                 deleteJob={this.props.deleteJob}
+                redirectToTaskShowPage={this.redirectToTaskShowPage}
               />
             )}
           />
-          {/* // <Route path="/profile" component={() => <Profile {...user} logOut={logOut}/>}/> */}
           <Route
             path="/create-task"
-            component={() => <JobForm submit={this.props.submitJob} {...this.props.user} />}
+            component={() => <JobForm submit={this.props.submitJob} />}
+          />
+          <Route
+            path="/task/:id"
+            component={() => <JobShow />}
           />
         </div>
       </BrowserRouter>
@@ -54,4 +72,4 @@ class MembersArea extends Component {
   }
 }
 
-export default MembersArea;
+export default withRouter(MembersArea);
