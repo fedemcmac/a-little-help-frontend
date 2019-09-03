@@ -56,18 +56,18 @@ class App extends Component {
     // })
   };
 
-  findJob = id => {
+  findHelpingJob = id => {
     return this.state.user.helping_jobs.find(job => job.id === id);
   };
 
   dropJob = id => {
     API.dropJob(id);
     this.setState({
-      jobs: [...this.state.jobs, this.findJob(id)],
+      jobs: [...this.state.jobs, this.findHelpingJob(id)],
       user: {
         ...this.state.user,
         helping_jobs: this.state.user.helping_jobs.filter(job => job.id !== id)
-      }
+      },
     });
   };
 
@@ -83,13 +83,28 @@ class App extends Component {
     );
   };
 
-  editJob = id => {
-    API.editJob(id);
+  editJob = job => {
+    API.editJob(job);
   };
 
   deleteJob = id => {
     API.deleteJob(id);
+    this.setState({
+      user: {
+        ...this.state.user,
+        created_jobs: this.state.user.created_jobs.filter(job => job.id !== id)
+      }
+    })
+    this.props.history.push("/my-tasks");
   };
+
+  // findJob = id => {
+  //   return (
+  //     this.state.jobs.find(job => job.id === id) ||
+  //     this.state.user.created_jobs.find(job => job.id === id) ||
+  //     this.state.user.helping_jobs.find(job => job.id === id)
+  //   );
+  // };
 
   render() {
     return (
@@ -107,6 +122,7 @@ class App extends Component {
                 dropJob={this.dropJob}
                 editJob={this.editJob}
                 deleteJob={this.deleteJob}
+                // findJob={this.findJob}
               />
             )}
           />
