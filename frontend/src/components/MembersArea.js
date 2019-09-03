@@ -11,7 +11,6 @@ import JobShow from "./JobShow";
 
 // check if this component really needs to be a class
 class MembersArea extends Component {
-
   redirectToTaskShowPage = id => {
     this.props.history.push("/task/:id".replace(":id", id));
   };
@@ -64,7 +63,15 @@ class MembersArea extends Component {
           />
           <Route
             path="/task/:id"
-            component={() => <JobShow />}
+            component={() => (
+              <JobShow
+                userId={this.props.user.id}
+                acceptJob={this.props.acceptJob}
+                dropJob={this.props.dropJob}
+                editJob={this.props.editJob}
+                deleteJob={this.props.deleteJob}
+              />
+            )}
           />
         </div>
       </BrowserRouter>

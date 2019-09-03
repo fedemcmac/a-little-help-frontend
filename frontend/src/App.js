@@ -67,7 +67,7 @@ class App extends Component {
       user: {
         ...this.state.user,
         helping_jobs: this.state.user.helping_jobs.filter(job => job.id !== id)
-      }
+      },
     });
   };
 
@@ -94,7 +94,8 @@ class App extends Component {
         ...this.state.user,
         created_jobs: this.state.user.created_jobs.filter(job => job.id !== id)
       }
-    });
+    })
+    this.props.history.push("/my-tasks");
   };
 
   // findJob = id => {

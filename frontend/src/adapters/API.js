@@ -119,10 +119,7 @@ const acceptJob = id =>
 const showJob = id => {
   return fetch(jobsUrl + `/${id}`)
     .then(resp => resp.json())
-    .then(data => {
-      console.log("From fetch:", data);
-      return data;
-    });
+    .then(data => data);
 };
 
 const editJob = job => {
